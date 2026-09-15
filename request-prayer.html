@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Request Prayer | New Glory Baptist Church</title>
+<meta name="description" content="Request prayer from New Glory Baptist Church, Ajao Estate, Lagos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="js/supabase-config.js"></script>
+</head>
+<a class="skip-link" href="#main">Skip to content</a>
+<body>
+
+<header>
+  <div class="nav">
+    <a class="brand" href="index.html">
+      <img src="images/logo.png" alt="New Glory Baptist Church logo">
+      <div class="brand-text">New Glory<br>Baptist Church<span>AJAO ESTATE · LAGOS</span></div>
+    </a>
+    <nav class="links">
+      <a href="index.html">Home</a>
+      <a href="im-new.html">I'm New</a>
+      <a href="about.html">About</a>
+      <a href="ministries.html">Ministries</a>
+      <div class="has-dropdown">
+        <a href="resources.html">Resources</a>
+        <div class="dropdown">
+          <div>
+            <h5>Learn</h5>
+            <ul>
+              <li><a href="sunday-school.html">Sunday School</a></li>
+              <li><a href="new-members-class.html">New Members Class</a></li>
+              <li><a href="discipleship.html">Discipleship</a></li>
+              <li><a href="devotional.html">Devotional</a></li>
+            </ul>
+          </div>
+          <div>
+            <h5>Connect</h5>
+            <ul>
+              <li><a href="request-prayer.html" class="active">Request Prayer</a></li>
+              <li><a href="share-testimony.html">Share a Testimony</a></li>
+              <li><a href="request-counselling.html">Request Counselling</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <a href="media.html">Media</a>
+      <a href="events.html">Events</a>
+      <a href="give.html">Give</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-line" href="tel:+2348062397290">Call Us</a>
+      <a class="btn btn-primary" href="im-new.html">Plan Your Visit</a>
+    </div>
+    <button class="burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<main id="main">
+
+<section class="page-hero">
+  <div class="flame-glow"></div>
+  <div class="page-hero-inner">
+    <div class="hero-eyebrow"><span>Connect</span></div>
+    <h1>Request Prayer.</h1>
+    <p>We believe in the power of prayer. Let us stand with you in faith.</p>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <div class="form-panel">
+      <div id="rp-form-fields">
+        <h3>Your Information</h3>
+        <div class="form-row">
+          <label for="rp-name">Full Name</label>
+          <input type="text" id="rp-name" placeholder="Your full name">
+        </div>
+        <div class="form-row">
+          <label for="rp-phone">Phone Number</label>
+          <input type="tel" id="rp-phone" placeholder="Your phone number">
+        </div>
+        <h3 style="margin-top:8px;">Prayer Request</h3>
+        <div class="form-row">
+          <label for="rp-request">How Can We Pray for You?</label>
+          <textarea id="rp-request" placeholder="Share as much or as little as you're comfortable with..."></textarea>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="rp-confidential">
+          <span><label for="rp-confidential">Keep this confidential — only share with the church office and pastoral team.</label></span>
+        </div>
+        <button class="btn btn-primary" id="rp-submit" type="button" style="width:100%;justify-content:center;">Send Prayer Request</button>
+        <p class="form-note" id="rp-note">Your request is sent straight to our prayer team.</p>
+      </div>
+      <div id="rp-success" style="display:none;text-align:center;padding:20px 0;">
+        <div style="width:56px;height:56px;border-radius:50%;background:rgba(28,116,168,0.12);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="var(--azure-deep)" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>
+        </div>
+        <h3>Your Request Has Been Sent</h3>
+        <p style="color:var(--ink-soft);margin-top:10px;">Thank you for trusting us with this. Our prayer team will be praying for you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-chip"><img src="images/logo.png" alt="New Glory Baptist Church logo"></div>
+        <div class="footer-brand-text">
+          <p>New Glory Baptist Church</p>
+          <span>A Bible-believing family in Ajao Estate, Lagos, gathering to worship, grow, and serve.</span>
+        </div>
+      </div>
+      <div>
+        <h4>Service Times</h4>
+        <ul>
+          <li>Sunday School — 9:00 AM</li>
+          <li>Worship Service — 10:00 AM</li>
+          <li>Wed. Bible Study — 6:00 PM</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="ministries.html">Ministries</a></li>
+          <li><a href="media.html">Media</a></li>
+          <li><a href="give.html">Give</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+2348062397290">0806 239 7290</a></li>
+          <li>28b, Awoniyi Elemo Street,<br>Ajao Estate, Lagos.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 New Glory Baptist Church. All rights reserved.</span>
+      <div class="socials">
+        <a href="https://facebook.com/NGBaptistChurch" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><path d="M15 7h2V3h-2c-2.2 0-4 1.8-4 4v2H9v4h2v8h4v-8h2.6l.4-4H15V7z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@NGBaptistChurch" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><rect x="2.5" y="6" width="19" height="12" rx="3"/><path d="M11 9.5l5 2.5-5 2.5v-5z" fill="#fff" stroke="none"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+<script>
+  document.getElementById('rp-submit').addEventListener('click', async function(){
+    var btn = document.getElementById('rp-submit');
+    var name = document.getElementById('rp-name').value.trim();
+    var phone = document.getElementById('rp-phone').value.trim();
+    var request = document.getElementById('rp-request').value.trim();
+    var confidential = document.getElementById('rp-confidential').checked;
+    var note = document.getElementById('rp-note');
+
+    if (!request) {
+      alert('Please share your prayer request before sending.');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    var sb = getSupabaseClient();
+    var savedToDatabase = false;
+
+    if (sb) {
+      try {
+        // Combine name/phone into the request text since the prayer_requests
+        // table only has name + request + is_private + prayed_for columns.
+        var fullRequest = request + (phone ? '\n\n(Contact: ' + phone + ')' : '');
+        var result = await sb.from('prayer_requests').insert({
+          name: name || 'Anonymous',
+          request: fullRequest,
+          is_private: confidential
+        });
+        if (result.error) throw result.error;
+        savedToDatabase = true;
+      } catch (err) {
+        console.error('Could not save prayer request to database, falling back to WhatsApp:', err);
+      }
+    }
+
+    if (savedToDatabase) {
+      document.getElementById('rp-form-fields').style.display = 'none';
+      document.getElementById('rp-success').style.display = 'block';
+    } else {
+      // Fallback: open WhatsApp pre-filled with the request instead.
+      var message = 'Prayer Request from New Glory Baptist Church website\n\n';
+      message += 'Name: ' + (name || 'Not provided') + '\n';
+      message += 'Phone: ' + (phone || 'Not provided') + '\n';
+      message += 'Confidential: ' + (confidential ? 'Yes' : 'No') + '\n\n';
+      message += 'Request:\n' + request;
+
+      var url = 'https://wa.me/2348062397290?text=' + encodeURIComponent(message);
+      window.open(url, '_blank');
+      note.textContent = "Couldn't reach our system, so we opened WhatsApp instead — please tap send there to reach the church office.";
+      btn.disabled = false;
+      btn.textContent = 'Send Prayer Request';
+    }
+  });
+</script>
+
+</body>
+</html>
