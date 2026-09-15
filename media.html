@@ -104,17 +104,22 @@
     <div class="section-head">
       <p class="eyebrow">Catch Up</p>
       <h2>Latest Message</h2>
-      <p>This always shows our most recently uploaded video — updates automatically, no need to touch the website when a new one goes up.</p>
+      <p>Watch the church's latest messages from our YouTube playlist. New uploads appear here automatically.</p>
     </div>
     <div class="video-frame">
       <iframe
         id="latest-frame"
-        title="New Glory Baptist Church — Latest Video"
+        title="New Glory Baptist Church — Latest Messages"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen
         loading="lazy">
       </iframe>
+    </div>
+    <div style="margin-top:18px;display:flex;justify-content:flex-end;">
+      <a class="btn btn-line" href="https://www.youtube.com/playlist?list=PLsNxbWRl2yqXWSNFb3-kHpchLQ9g7suB9" target="_blank" rel="noopener">
+        Open YouTube Playlist →
+      </a>
     </div>
   </div>
 </section>
@@ -194,9 +199,14 @@
     ? window.location.origin
     : 'https://newglorybaptistchurch.org';
 
-  // Latest-message playlist embed (unrelated to live status, always shown).
+  // NGBC YouTube uploads playlist.
+  // UU + the channel ID suffix is YouTube's uploads playlist.
+  var NGBC_UPLOADS_PLAYLIST = 'PLsNxbWRl2yqXWSNFb3-kHpchLQ9g7suB9';
   if (latestFrame) {
-    latestFrame.src = 'https://www.youtube-nocookie.com/embed/videoseries?list=UU67z-sNcGJTpy-PXkLWUyIQ&origin=' + encodeURIComponent(origin);
+    latestFrame.src =
+      'https://www.youtube-nocookie.com/embed/videoseries?list=' +
+      NGBC_UPLOADS_PLAYLIST +
+      '&rel=0&modestbranding=1&origin=' + encodeURIComponent(origin);
   }
 
   async function loadLiveStatus() {
