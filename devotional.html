@@ -94,6 +94,9 @@
 .devotional-reading-plan p{font-weight:600}
 .devotional-details .devotional-block{margin-top:0}
 
+
+.scripture-reference{font-family:"IBM Plex Mono",monospace;font-size:.72em;font-weight:500;letter-spacing:.04em;color:var(--ink-soft);text-transform:none}
+.golden-reference{margin-top:12px;font-family:"IBM Plex Mono",monospace;font-size:.76rem;font-weight:600;color:var(--crimson);letter-spacing:.04em}
 </style>
 
 </head>
@@ -302,7 +305,7 @@
     if (Array.isArray(scripture)) {
       return `
         <div class="devotional-block">
-          <h4>Scripture Reading</h4>
+          <h4>Scripture Reading${d.passage ? ` <span class="scripture-reference">· ${escapeHtml(d.passage)}</span>` : ''}</h4>
           <div class="scripture-verses">
             ${scripture.map(v => `
               <p><sup>${escapeHtml(v.verse ?? '')}</sup> ${escapeHtml(v.text ?? '')}</p>
@@ -331,6 +334,7 @@
         <div class="devotional-block devotional-golden-text">
           <h4>Golden Text</h4>
           <p>${escapeHtml(golden)}</p>
+          ${d.golden_text && d.golden_text.reference ? `<div class="golden-reference">${escapeHtml(d.golden_text.reference)}</div>` : ''}
         </div>
       `);
     }
