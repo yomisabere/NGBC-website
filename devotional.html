@@ -299,7 +299,7 @@
     `;
   }
 
-  function renderScripture(scripture) {
+  function renderScripture(scripture, d) {
     if (!scripture) return '';
 
     if (Array.isArray(scripture)) {
@@ -339,7 +339,7 @@
       `);
     }
 
-    sections.push(renderScripture(d.scripture));
+    sections.push(renderScripture(d.scripture, d));
 
     if (d.reflection) sections.push(`<div class="devotional-block"><h4>Reflection</h4><p>${escapeHtml(d.reflection)}</p></div>`);
     if (d.wisdom) sections.push(`<div class="devotional-block"><h4>Wisdom</h4><p>${escapeHtml(d.wisdom)}</p></div>`);
