@@ -95,7 +95,12 @@
 .devotional-details .devotional-block{margin-top:0}
 
 
-.scripture-reference{font-family:"IBM Plex Mono",monospace;font-size:.72em;font-weight:500;letter-spacing:.04em;color:var(--ink-soft);text-transform:none}
+.devotional-scripture-block{padding-top:4px}
+.scripture-heading{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:0 0 16px;margin-bottom:20px;border-bottom:1px solid rgba(30,27,24,.16)}
+.scripture-heading-label{font-family:"IBM Plex Mono",monospace;font-size:.9rem;font-weight:800;letter-spacing:.12em;color:var(--crimson);text-transform:uppercase}
+.scripture-heading-divider{width:1px;height:24px;background:rgba(30,27,24,.25);display:inline-block}
+.scripture-heading-reference{font-family:"IBM Plex Mono",monospace;font-size:1rem;font-weight:800;letter-spacing:.035em;color:var(--ink);text-transform:none}
+@media(max-width:600px){.scripture-heading{gap:10px}.scripture-heading-divider{display:none}.scripture-heading-reference{width:100%;font-size:.92rem}}
 .golden-reference{margin-top:12px;font-family:"IBM Plex Mono",monospace;font-size:.76rem;font-weight:600;color:var(--crimson);letter-spacing:.04em}
 </style>
 
@@ -304,8 +309,11 @@
 
     if (Array.isArray(scripture)) {
       return `
-        <div class="devotional-block">
-          <h4>Scripture Reading${d.passage ? ` <span class="scripture-reference">· ${escapeHtml(d.passage)}</span>` : ''}</h4>
+        <div class="devotional-block devotional-scripture-block">
+          <div class="scripture-heading">
+            <span class="scripture-heading-label">SCRIPTURE READING</span>
+            ${d.passage ? `<span class="scripture-heading-divider" aria-hidden="true"></span><strong class="scripture-heading-reference">${escapeHtml(d.passage)}</strong>` : ''}
+          </div>
           <div class="scripture-verses">
             ${scripture.map(v => `
               <p><sup>${escapeHtml(v.verse ?? '')}</sup> ${escapeHtml(v.text ?? '')}</p>
@@ -316,8 +324,11 @@
     }
 
     return `
-      <div class="devotional-block">
-        <h4>Scripture Reading</h4>
+      <div class="devotional-block devotional-scripture-block">
+        <div class="scripture-heading">
+          <span class="scripture-heading-label">SCRIPTURE READING</span>
+          ${d && d.passage ? `<span class="scripture-heading-divider" aria-hidden="true"></span><strong class="scripture-heading-reference">${escapeHtml(d.passage)}</strong>` : ''}
+        </div>
         <p>${escapeHtml(jsonText(scripture))}</p>
       </div>
     `;
