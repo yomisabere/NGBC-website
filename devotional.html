@@ -77,6 +77,23 @@
   to{opacity:1;transform:translateY(0)}
 }
 
+
+.devotional-complete{gap:24px}
+.devotional-hymn{padding:22px;border:1px solid rgba(192,32,47,.14);background:rgba(192,32,47,.045)}
+.devotional-hymn h5{font-family:"Fraunces",serif;font-size:1.25rem;margin:5px 0 18px}
+.hymn-verse{margin-top:16px}
+.hymn-verse-label{display:block;font:500 .68rem "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--crimson);margin-bottom:5px}
+.hymn-verse p{white-space:pre-line;line-height:1.7}
+.devotional-golden-text{padding:20px;border-left:3px solid var(--gold);background:rgba(227,169,59,.06)}
+.scripture-verses{display:grid;gap:10px}
+.scripture-verses p{margin:0;line-height:1.7}
+.scripture-verses sup{font-family:"IBM Plex Mono",monospace;color:var(--crimson);font-size:.7em;margin-right:5px}
+.devotional-prayer,.devotional-ministers{padding-top:18px;border-top:1px solid rgba(30,27,24,.12)}
+.devotional-ministers p{white-space:pre-line}
+.devotional-reading-plan{padding:16px 18px;background:rgba(30,27,24,.045)}
+.devotional-reading-plan p{font-weight:600}
+.devotional-details .devotional-block{margin-top:0}
+
 </style>
 
 </head>
@@ -259,16 +276,85 @@
     return d.theme || d.series_title || 'Daily Devotional';
   }
 
+  function renderHymn(hymn) {
+    if (!hymn) return '';
+    const title = hymn.title || '';
+    const number = hymn.number || '';
+    const verses = Array.isArray(hymn.verses) ? hymn.verses : [];
+
+    return `
+      <div class="devotional-block devotional-hymn">
+        <h4>Hymn${number ? ` · ${escapeHtml(number)}` : ''}</h4>
+        ${title ? `<h5>${escapeHtml(title)}</h5>` : ''}
+        ${verses.map((verse, i) => `
+          <div class="hymn-verse">
+            ${verses.length > 1 ? `<span class="hymn-verse-label">Verse ${i + 1}</span>` : ''}
+            <p>${escapeHtml(String(verse))}</p>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  function renderScripture(scripture) {
+    if (!scripture) return '';
+
+    if (Array.isArray(scripture)) {
+      return `
+        <div class="devotional-block">
+          <h4>Scripture Reading</h4>
+          <div class="scripture-verses">
+            ${scripture.map(v => `
+              <p><sup>${escapeHtml(v.verse ?? '')}</sup> ${escapeHtml(v.text ?? '')}</p>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    return `
+      <div class="devotional-block">
+        <h4>Scripture Reading</h4>
+        <p>${escapeHtml(jsonText(scripture))}</p>
+      </div>
+    `;
+  }
+
+  function renderDevotionalSections(d) {
+    const sections = [];
+
+    if (d.hymn) sections.push(renderHymn(d.hymn));
+
+    const golden = jsonText(d.golden_text);
+    if (golden) {
+      sections.push(`
+        <div class="devotional-block devotional-golden-text">
+          <h4>Golden Text</h4>
+          <p>${escapeHtml(golden)}</p>
+        </div>
+      `);
+    }
+
+    sections.push(renderScripture(d.scripture));
+
+    if (d.reflection) sections.push(`<div class="devotional-block"><h4>Reflection</h4><p>${escapeHtml(d.reflection)}</p></div>`);
+    if (d.wisdom) sections.push(`<div class="devotional-block"><h4>Wisdom</h4><p>${escapeHtml(d.wisdom)}</p></div>`);
+    if (d.food_for_thought) sections.push(`<div class="devotional-block"><h4>Food for Thought</h4><p>${escapeHtml(d.food_for_thought)}</p></div>`);
+    if (d.follow_up_action) sections.push(`<div class="devotional-block"><h4>Take Action</h4><p>${escapeHtml(d.follow_up_action)}</p></div>`);
+    if (d.prayer) sections.push(`<div class="devotional-block devotional-prayer"><h4>Prayer</h4><p>${escapeHtml(d.prayer)}</p></div>`);
+    if (d.additional_prayer) sections.push(`<div class="devotional-block devotional-prayer"><h4>Additional Prayer</h4><p>${escapeHtml(d.additional_prayer)}</p></div>`);
+    if (d.pray_for_ministers) sections.push(`<div class="devotional-block devotional-ministers"><h4>Prayer for Ministers</h4><p>${escapeHtml(d.pray_for_ministers)}</p></div>`);
+    if (d.reading_plan) sections.push(`<div class="devotional-block devotional-reading-plan"><h4>Reading Plan</h4><p>${escapeHtml(d.reading_plan)}</p></div>`);
+
+    return sections.filter(Boolean).join('');
+  }
+
   function renderFeature(d) {
     if (!d) {
       featureEl.innerHTML = '<div class="devotional-empty">No devotional has been published yet. Please check back soon.</div>';
       statusEl.textContent = 'No devotional available yet.';
       return;
     }
-
-    const scripture = jsonText(d.golden_text) || jsonText(d.scripture);
-    const prayer = d.prayer || d.additional_prayer || '';
-    const reflection = d.reflection || d.wisdom || d.food_for_thought || '';
 
     featureEl.innerHTML = `
       <div class="devotional-kicker">${escapeHtml(d.series_title || 'Daily Devotional')}</div>
@@ -277,12 +363,8 @@
         <span>${escapeHtml(formatDate(d.date))}</span>
         ${d.passage ? `<span>Scripture: ${escapeHtml(d.passage)}</span>` : ''}
       </div>
-      ${scripture ? `<div class="devotional-scripture">${escapeHtml(scripture)}</div>` : ''}
-      <div class="devotional-body">
-        ${d.reflection ? `<div class="devotional-block"><h4>Reflection</h4><p>${escapeHtml(d.reflection)}</p></div>` : ''}
-        ${d.wisdom ? `<div class="devotional-block"><h4>Wisdom</h4><p>${escapeHtml(d.wisdom)}</p></div>` : ''}
-        ${d.food_for_thought ? `<div class="devotional-block"><h4>Food for Thought</h4><p>${escapeHtml(d.food_for_thought)}</p></div>` : ''}
-        ${prayer ? `<div class="devotional-block"><h4>Prayer</h4><p>${escapeHtml(prayer)}</p></div>` : ''}
+      <div class="devotional-body devotional-complete">
+        ${renderDevotionalSections(d)}
       </div>
     `;
     statusEl.textContent = 'Latest devotional from New Glory Baptist Church.';
@@ -296,8 +378,6 @@
 
     archiveEl.innerHTML = rows.map((d, index) => {
       const preview = d.reflection || d.wisdom || d.food_for_thought || '';
-      const scripture = jsonText(d.golden_text) || jsonText(d.scripture);
-      const prayer = d.prayer || d.additional_prayer || '';
       const cardId = 'devotional-archive-' + index;
 
       return `
@@ -314,13 +394,7 @@
           </button>
 
           <div id="${cardId}" class="devotional-details" hidden>
-            ${scripture ? `<div class="devotional-block"><h4>Scripture</h4><p>${escapeHtml(scripture)}</p></div>` : ''}
-            ${d.reflection ? `<div class="devotional-block"><h4>Reflection</h4><p>${escapeHtml(d.reflection)}</p></div>` : ''}
-            ${d.wisdom ? `<div class="devotional-block"><h4>Wisdom</h4><p>${escapeHtml(d.wisdom)}</p></div>` : ''}
-            ${d.food_for_thought ? `<div class="devotional-block"><h4>Food for Thought</h4><p>${escapeHtml(d.food_for_thought)}</p></div>` : ''}
-            ${prayer ? `<div class="devotional-block"><h4>Prayer</h4><p>${escapeHtml(prayer)}</p></div>` : ''}
-            ${d.follow_up_action ? `<div class="devotional-block"><h4>Take Action</h4><p>${escapeHtml(d.follow_up_action)}</p></div>` : ''}
-            ${d.reading_plan ? `<div class="devotional-block"><h4>Reading Plan</h4><p>${escapeHtml(d.reading_plan)}</p></div>` : ''}
+            ${renderDevotionalSections(d)}
           </div>
         </article>
       `;
