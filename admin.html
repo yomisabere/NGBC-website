@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NGBC Admin | New Glory Baptist Church</title>
+<meta name="description" content="New Glory Baptist Church administration portal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/admin.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="js/supabase-config.js"></script>
+</head>
+<body class="admin-body">
+<div id="login-view" class="admin-login">
+  <div class="admin-login-card">
+    <a class="admin-brand" href="index.html"><img src="images/logo.png" alt="New Glory Baptist Church"><span>New Glory Baptist Church<small>Administration Portal</small></span></a>
+    <div class="admin-kicker">Secure access</div>
+    <h1>Church Admin</h1>
+    <p class="admin-muted">Sign in to review prayer requests, counselling requests and testimonies.</p>
+    <form id="login-form">
+      <label for="admin-email">Email</label>
+      <input id="admin-email" type="email" value="yomisabere@gmail.com" autocomplete="username" required>
+      <label for="admin-password">Password</label>
+      <input id="admin-password" type="password" autocomplete="current-password" required>
+      <button class="btn btn-primary admin-submit" type="submit" id="login-button">Sign In</button>
+      <p class="admin-message" id="login-message" role="alert"></p>
+    </form>
+    <a class="back-site" href="index.html">← Back to church website</a>
+  </div>
+</div>
+
+<div id="app-view" class="admin-app" hidden>
+  <header class="admin-topbar">
+    <div class="admin-topbar-inner">
+      <a class="admin-brand compact" href="index.html"><img src="images/logo.png" alt=""><span>NGBC <small>Admin</small></span></a>
+      <div class="admin-account"><span id="admin-user-email"></span><button id="logout-button" class="admin-ghost">Sign out</button></div>
+    </div>
+  </header>
+  <main class="admin-main">
+    <div class="admin-heading">
+      <div><div class="admin-kicker">Pastoral care</div><h1>Connection Inbox</h1><p>Review and respond to people reaching out through the church website.</p></div>
+      <button class="admin-refresh" id="refresh-button">Refresh</button>
+    </div>
+    <div class="admin-stats" id="stats"></div>
+    <div class="admin-tabs" role="tablist">
+      <button class="admin-tab active" data-table="prayer_requests" role="tab">Prayer Requests <span id="count-prayer_requests">0</span></button>
+      <button class="admin-tab" data-table="counselling_requests" role="tab">Counselling <span id="count-counselling_requests">0</span></button>
+      <button class="admin-tab" data-table="testimonies" role="tab">Testimonies <span id="count-testimonies">0</span></button>
+    </div>
+    <div class="admin-toolbar">
+      <select id="status-filter" aria-label="Filter by status"></select>
+      <span id="list-meta" class="admin-muted"></span>
+    </div>
+    <section class="admin-content">
+      <div class="admin-list" id="record-list"></div>
+      <aside class="admin-detail" id="detail-panel"><div class="empty-detail">Select a submission to view its details.</div></aside>
+    </section>
+  </main>
+</div>
+<script src="js/admin.js"></script>
+</body>
+</html>

@@ -181,62 +181,6 @@
 </footer>
 
 <script src="js/script.js"></script>
-<script>
-  document.getElementById('rp-submit').addEventListener('click', async function(){
-    var btn = document.getElementById('rp-submit');
-    var name = document.getElementById('rp-name').value.trim();
-    var phone = document.getElementById('rp-phone').value.trim();
-    var request = document.getElementById('rp-request').value.trim();
-    var confidential = document.getElementById('rp-confidential').checked;
-    var note = document.getElementById('rp-note');
-
-    if (!request) {
-      alert('Please share your prayer request before sending.');
-      return;
-    }
-
-    btn.disabled = true;
-    btn.textContent = 'Sending...';
-
-    var sb = getSupabaseClient();
-    var savedToDatabase = false;
-
-    if (sb) {
-      try {
-        // Combine name/phone into the request text since the prayer_requests
-        // table only has name + request + is_private + prayed_for columns.
-        var fullRequest = request + (phone ? '\n\n(Contact: ' + phone + ')' : '');
-        var result = await sb.from('prayer_requests').insert({
-          name: name || 'Anonymous',
-          request: fullRequest,
-          is_private: confidential
-        });
-        if (result.error) throw result.error;
-        savedToDatabase = true;
-      } catch (err) {
-        console.error('Could not save prayer request to database, falling back to WhatsApp:', err);
-      }
-    }
-
-    if (savedToDatabase) {
-      document.getElementById('rp-form-fields').style.display = 'none';
-      document.getElementById('rp-success').style.display = 'block';
-    } else {
-      // Fallback: open WhatsApp pre-filled with the request instead.
-      var message = 'Prayer Request from New Glory Baptist Church website\n\n';
-      message += 'Name: ' + (name || 'Not provided') + '\n';
-      message += 'Phone: ' + (phone || 'Not provided') + '\n';
-      message += 'Confidential: ' + (confidential ? 'Yes' : 'No') + '\n\n';
-      message += 'Request:\n' + request;
-
-      var url = 'https://wa.me/2348062397290?text=' + encodeURIComponent(message);
-      window.open(url, '_blank');
-      note.textContent = "Couldn't reach our system, so we opened WhatsApp instead — please tap send there to reach the church office.";
-      btn.disabled = false;
-      btn.textContent = 'Send Prayer Request';
-    }
-  });
-</script>
-
+<script src="js/connection-forms.js"></script>
 </body>
 </html>

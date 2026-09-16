@@ -9,6 +9,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="js/supabase-config.js"></script>
 </head>
 <a class="skip-link" href="#main">Skip to content</a>
 <body>
@@ -95,6 +97,7 @@
 <section class="tight">
   <div class="wrap">
     <div class="form-panel">
+      <div id="rc-form-fields">
       <h3>Your Information</h3>
       <div class="form-row">
         <label for="rc-name">Full Name</label>
@@ -118,7 +121,13 @@
         <span><label for="rc-confidential">Keep this confidential — only the pastoral team will see this request.</label></span>
       </div>
       <button class="btn btn-primary" id="rc-submit" type="button" style="width:100%;justify-content:center;">Send Counselling Request</button>
-      <p class="form-note">This sends your request via WhatsApp to the church office — we don't yet have a form that saves directly to our system.</p>
+      <p class="form-note" id="rc-note">Your request is sent securely to our church team.</p>
+      </div>
+      <div id="rc-success" style="display:none;text-align:center;padding:20px 0;">
+        <div style="width:56px;height:56px;border-radius:50%;background:rgba(28,116,168,0.12);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="var(--azure-deep)" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></div>
+        <h3>Your Counselling Request Has Been Sent</h3>
+        <p style="color:var(--ink-soft);margin-top:10px;">Thank you for reaching out. A member of our team will follow up with you.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -174,30 +183,6 @@
 </footer>
 
 <script src="js/script.js"></script>
-<script>
-  document.getElementById('rc-submit').addEventListener('click', function(){
-    var name = document.getElementById('rc-name').value.trim();
-    var phone = document.getElementById('rc-phone').value.trim();
-    var preference = document.getElementById('rc-preference').value.trim();
-    var nature = document.getElementById('rc-nature').value.trim();
-    var confidential = document.getElementById('rc-confidential').checked;
-
-    if (!nature) {
-      alert('Please share a little about what you would like to talk about before sending.');
-      return;
-    }
-
-    var message = 'Counselling Request from New Glory Baptist Church website\\n\\n';
-    message += 'Name: ' + (name || 'Not provided') + '\\n';
-    message += 'Phone: ' + (phone || 'Not provided') + '\\n';
-    message += 'Preferred Contact: ' + (preference || 'Not provided') + '\\n';
-    message += 'Confidential: ' + (confidential ? 'Yes' : 'No') + '\\n\\n';
-    message += 'Request:\\n' + nature;
-
-    var url = 'https://wa.me/2348062397290?text=' + encodeURIComponent(message);
-    window.open(url, '_blank');
-  });
-</script>
-
+<script src="js/connection-forms.js"></script>
 </body>
 </html>

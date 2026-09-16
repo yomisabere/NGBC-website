@@ -87,9 +87,19 @@ nav.links a:hover, nav.links a.active{color:var(--crimson);}
 
 /* dropdown */
 .has-dropdown{position:relative;}
+/* Keep the desktop dropdown active while the cursor travels from the nav item to the menu. */
+.has-dropdown::after{
+  content:"";
+  position:absolute;
+  top:100%;
+  left:-8px;
+  right:-8px;
+  height:32px;
+  z-index:1;
+}
 .dropdown{
   display:none;
-  position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%);
   background:var(--cream);
   border:1px solid var(--line);
   box-shadow:0 16px 32px rgba(20,18,15,0.12);
@@ -889,3 +899,6 @@ img{max-width:100%;height:auto}
 .give-trust-mark{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--ngbc-red);color:#fff;font-weight:700;flex:none}
 .give-trust strong{display:block;margin-bottom:3px}
 .give-trust p{margin:0;color:var(--ink-soft);font-size:.9rem;line-height:1.5}
+
+/* Supabase connection form feedback */
+.form-note.form-error{color:var(--crimson)!important;font-weight:600}
