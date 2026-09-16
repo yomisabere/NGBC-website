@@ -791,3 +791,101 @@ header.scrolled{box-shadow:0 8px 30px rgba(34,31,27,.1);background:rgba(251,248,
   .hero-emblem img{width:96px;height:96px}
   .hero-side-card{width:min(100%,420px);transform:none}
 }
+
+/* ===== NGBC 2026 UI POLISH ===== */
+:root{--ngbc-red:#c92332;--ngbc-gold:#d9a52e;--ngbc-border:rgba(37,34,31,.13)}
+html{scroll-behavior:smooth}
+body{overflow-x:hidden}
+::selection{background:var(--ngbc-red);color:#fff}
+.site-header{transition:box-shadow .25s ease,background .25s ease}
+.site-header.scrolled{box-shadow:0 8px 28px rgba(30,25,20,.08);background:rgba(255,252,248,.96);backdrop-filter:blur(14px)}
+.nav a{transition:color .2s ease,opacity .2s ease}
+.nav a:hover,.nav .active,.nav a[aria-current="page"]{color:var(--ngbc-red)}
+.btn{transition:transform .2s ease,box-shadow .2s ease}
+.btn:hover{transform:translateY(-2px)}
+.btn:focus-visible,.nav a:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid rgba(201,35,50,.28);outline-offset:3px}
+.card{transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.card:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(31,27,23,.09);border-color:rgba(201,35,50,.2)}
+img{max-width:100%;height:auto}
+.video-frame{overflow:hidden;border-radius:16px;box-shadow:0 18px 45px rgba(30,25,20,.12)}
+.site-footer{position:relative;overflow:hidden}
+.site-footer:before{content:"";position:absolute;inset:0 0 auto;height:3px;background:linear-gradient(90deg,var(--ngbc-red),var(--ngbc-gold),var(--ngbc-red))}
+.site-footer a{transition:color .2s ease,transform .2s ease}
+.site-footer a:hover{color:#fff;transform:translateX(2px)}
+.reveal-on-scroll{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease}
+.reveal-on-scroll.is-visible{opacity:1;transform:none}
+@media(max-width:800px){.site-header{position:sticky;top:0;z-index:1000}.video-frame{border-radius:10px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal-on-scroll{opacity:1;transform:none}}
+
+/* ===== Visit guide ===== */
+.skip-link{position:fixed;left:14px;top:-60px;z-index:2000;padding:10px 16px;background:var(--ngbc-red);color:#fff;border-radius:0 0 8px 8px;font-weight:700}
+.skip-link:focus{top:0}
+.visit-guide{padding:96px 0;background:#f4eee5;border-top:1px solid var(--ngbc-border);border-bottom:1px solid var(--ngbc-border)}
+.visit-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ngbc-border);border-bottom:1px solid var(--ngbc-border)}
+.visit-step{padding:32px 30px;min-height:210px;border-right:1px solid var(--ngbc-border)}
+.visit-step:last-child{border-right:0}
+.visit-number{display:block;margin-bottom:26px;font:600 .72rem "IBM Plex Mono",monospace;letter-spacing:.12em;color:var(--ngbc-red)}
+.visit-step h3{margin:0 0 12px;font-family:"Fraunces",serif;font-size:1.55rem}
+.visit-step p{margin:0;max-width:32ch;color:var(--ink-soft);line-height:1.65}
+@media(max-width:800px){
+  .visit-guide{padding:70px 0}
+  .visit-grid{grid-template-columns:1fr}
+  .visit-step{border-right:0;border-bottom:1px solid var(--ngbc-border);min-height:auto}
+  .visit-step:last-child{border-bottom:0}
+}
+
+.back-to-top{position:fixed;right:24px;bottom:24px;z-index:900;width:44px;height:44px;border:1px solid var(--ngbc-border);border-radius:50%;background:#fff;color:var(--ngbc-red);font-size:20px;cursor:pointer;box-shadow:0 8px 24px rgba(30,25,20,.12);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .2s,visibility .2s,transform .2s}
+.back-to-top.show{opacity:1;visibility:visible;transform:none}
+.back-to-top:hover{transform:translateY(-3px)}
+
+/* ===== NGBC Round 4: Events / Ministries / Media ===== */
+.event-intro{padding:28px 0 12px}
+.event-intro-grid,.ministry-guide-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:end}
+.event-intro h2,.ministry-guide h2{margin:0;max-width:18ch}
+.event-intro-grid>p,.ministry-guide-inner>p{margin:0;max-width:48ch;color:var(--ink-soft);line-height:1.7}
+.ministry-guide{padding:30px 0 10px}
+.ministry-guide-inner{align-items:center}
+.media-nav{padding:0 0 28px}
+.media-nav-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--ngbc-border);background:rgba(255,255,255,.45)}
+.media-nav-grid a{padding:22px 24px;border-right:1px solid var(--ngbc-border);display:grid;grid-template-columns:auto 1fr;column-gap:14px;row-gap:3px;text-decoration:none;transition:background .2s ease}
+.media-nav-grid a:last-child{border-right:0}
+.media-nav-grid a:hover{background:rgba(201,35,50,.04)}
+.media-nav-grid span{grid-row:1 / span 2;font:600 .7rem "IBM Plex Mono",monospace;color:var(--ngbc-red);padding-top:3px}
+.media-nav-grid strong{font-family:"Fraunces",serif;font-size:1.25rem;color:var(--ink)}
+.media-nav-grid small{color:var(--ink-soft);font-size:.84rem}
+@media(max-width:800px){
+  .event-intro-grid,.ministry-guide-inner{grid-template-columns:1fr;gap:20px}
+  .media-nav-grid{grid-template-columns:1fr}
+  .media-nav-grid a{border-right:0;border-bottom:1px solid var(--ngbc-border)}
+  .media-nav-grid a:last-child{border-bottom:0}
+}
+
+/* ===== NGBC Round 5: Connection + Giving UX ===== */
+.form-panel{box-shadow:0 18px 45px rgba(30,25,20,.07);border:1px solid var(--ngbc-border)}
+.form-row input,.form-row textarea,.form-row select{
+  transition:border-color .2s ease,box-shadow .2s ease,background .2s ease;
+}
+.form-row input:focus,.form-row textarea:focus,.form-row select:focus{
+  border-color:var(--ngbc-red);
+  box-shadow:0 0 0 4px rgba(201,35,50,.08);
+  outline:none;
+  background:#fff;
+}
+.form-row textarea{min-height:150px;resize:vertical}
+.form-note{line-height:1.55}
+.give-tile{transition:transform .2s ease,box-shadow .2s ease}
+.give-tile:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(30,25,20,.08)}
+.give-copy{transition:background .2s ease,color .2s ease}
+.give-copy:hover{background:var(--ngbc-red);color:#fff}
+.connection-intro{padding:26px 0 0}
+.connection-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.connection-card{padding:24px;border:1px solid var(--ngbc-border);background:#fff}
+.connection-card .eyebrow{margin-bottom:12px}
+.connection-card h3{margin:0 0 8px;font-family:"Fraunces",serif}
+.connection-card p{margin:0;color:var(--ink-soft);line-height:1.6}
+@media(max-width:800px){.connection-grid{grid-template-columns:1fr}}
+
+.give-trust{display:flex;gap:14px;align-items:flex-start;padding:18px 20px;margin:0 0 20px;border:1px solid rgba(201,35,50,.14);background:rgba(201,35,50,.035);border-radius:14px}
+.give-trust-mark{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--ngbc-red);color:#fff;font-weight:700;flex:none}
+.give-trust strong{display:block;margin-bottom:3px}
+.give-trust p{margin:0;color:var(--ink-soft);font-size:.9rem;line-height:1.5}

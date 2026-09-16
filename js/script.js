@@ -44,3 +44,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
 });
+
+/* NGBC site-wide interaction polish */
+(function(){
+  const header=document.querySelector('.site-header');
+  const update=()=>{if(header) header.classList.toggle('scrolled',window.scrollY>12)};
+  update(); window.addEventListener('scroll',update,{passive:true});
+  if('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const els=document.querySelectorAll('main section,main .card');
+    els.forEach(el=>el.classList.add('reveal-on-scroll'));
+    const io=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target)}})
+    },{threshold:.08});
+    els.forEach(el=>io.observe(el));
+  }
+})();
+
+/* Navigation state + accessible back-to-top */
+(function(){
+  const current=(location.pathname.split('/').pop()||'index.html').toLowerCase();
+  document.querySelectorAll('.nav a').forEach(a=>{
+    const href=(a.getAttribute('href')||'').split('#')[0].split('/').pop().toLowerCase();
+    if(href && href===current){
+      a.classList.add('active');
+      a.setAttribute('aria-current','page');
+    }
+  });
+
+  const top=document.createElement('button');
+  top.type='button';
+  top.className='back-to-top';
+  top.setAttribute('aria-label','Back to top');
+  top.textContent='↑';
+  document.body.appendChild(top);
+  const sync=()=>top.classList.toggle('show',window.scrollY>500);
+  sync(); window.addEventListener('scroll',sync,{passive:true});
+  top.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+})();
