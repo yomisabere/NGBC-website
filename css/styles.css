@@ -879,7 +879,21 @@ img{max-width:100%;height:auto}
   border-color:var(--ngbc-red);
   box-shadow:0 0 0 4px rgba(201,35,50,.08);
   outline:none;
-  background:#fff;
+  background:rgba(255,255,255,0.10);
+  color:#fff;
+}
+.form-row input,.form-row textarea,.form-row select{
+  color:#fff;
+  -webkit-text-fill-color:#fff;
+}
+.form-row input:focus::placeholder,.form-row textarea:focus::placeholder{
+  color:rgba(255,255,255,0.35);
+}
+.form-row input:-webkit-autofill,.form-row input:-webkit-autofill:hover,.form-row input:-webkit-autofill:focus{
+  -webkit-text-fill-color:#fff;
+  -webkit-box-shadow:0 0 0 1000px #2a2724 inset;
+  box-shadow:0 0 0 1000px #2a2724 inset;
+  caret-color:#fff;
 }
 .form-row textarea{min-height:150px;resize:vertical}
 .form-note{line-height:1.55}
