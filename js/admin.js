@@ -12,12 +12,20 @@
   function escapeHtml(v){return String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
   function formatDate(v){return v?new Intl.DateTimeFormat('en-NG',{dateStyle:'medium',timeStyle:'short'}).format(new Date(v)):'—';}
   function showToast(text){const el=document.createElement('div');el.className='admin-toast';el.textContent=text;document.body.appendChild(el);setTimeout(()=>el.remove(),2600)}
-  function showLogin(msg=''){loginView.hidden=false;appView.hidden=true;$('login-message').textContent=msg}
-  function showApp(email){loginView.hidden=true;appView.hidden=false;$('admin-user-email').textContent=email||ADMIN_EMAIL;}
+  function setView(loginVisible){
+    loginView.classList.toggle('admin-view-hidden', !loginVisible);
+    appView.classList.toggle('admin-view-hidden', loginVisible);
+    loginView.hidden=!loginVisible;
+    appView.hidden=loginVisible;
+  }
+  function showLogin(msg=''){setView(true);$('login-message').textContent=msg||'';}
+  function showApp(email){setView(false);$('admin-user-email').textContent=email||ADMIN_EMAIL;}
   async function verifySession(){
     if(!sb){showLogin('The secure connection could not be loaded.');return;}
-    const {data:{session}}=await sb.auth.getSession();
-    if(session?.user?.email?.toLowerCase()===ADMIN_EMAIL) showApp(session.user.email);
+    setView(true);
+    const {data:{session},error}=await sb.auth.getSession();
+    if(error){showLogin('Could not restore your session. Please sign in again.');return;}
+    if(session?.user?.email?.toLowerCase()===ADMIN_EMAIL){showApp(session.user.email);await loadAll();}
     else if(session){await sb.auth.signOut();showLogin('This account is not authorised for the NGBC admin portal.');}
     else showLogin();
   }
@@ -66,6 +74,12 @@
   }
   async function updateRecord(patch){const r=records.find(x=>x.id===selectedId);if(!r)return;const {data,error}=await sb.from(currentTable).update({...patch,updated_at:new Date().toISOString()}).eq('id',r.id).select().single();if(error){showToast(error.message);return}Object.assign(r,data);renderList();renderDetail();showToast('Submission updated.');}
   async function deleteRecord(){if(!confirm('Delete this submission permanently?'))return;const r=records.find(x=>x.id===selectedId);const {error}=await sb.from(currentTable).delete().eq('id',r.id);if(error){showToast(error.message);return}selectedId=null;await loadAll();showToast('Submission deleted.');}
-  sb?.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_OUT')showLogin();else if(session?.user?.email?.toLowerCase()!==ADMIN_EMAIL && event==='SIGNED_IN')showLogin('This account is not authorised for the NGBC admin portal.');});
+  sb?.auth.onAuthStateChange((event,session)=>{
+    if(event==='SIGNED_OUT'){showLogin();return;}
+    if(event==='SIGNED_IN' || event==='TOKEN_REFRESHED' || event==='INITIAL_SESSION'){
+      if(session?.user?.email?.toLowerCase()===ADMIN_EMAIL){showApp(session.user.email);}
+      else if(event==='SIGNED_IN'){showLogin('This account is not authorised for the NGBC admin portal.');}
+    }
+  });
   verifySession();
 })();
